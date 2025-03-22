@@ -3,8 +3,6 @@ package cat.itacademy.s05.t01.n01.BlackJack.S05T01N01BlackJack.model.mongo;
 import cat.itacademy.s05.t01.n01.BlackJack.S05T01N01BlackJack.enums.PlayerType;
 import cat.itacademy.s05.t01.n01.BlackJack.S05T01N01BlackJack.enums.RankCard;
 import cat.itacademy.s05.t01.n01.BlackJack.S05T01N01BlackJack.enums.SuitCard;
-import cat.itacademy.s05.t01.n01.BlackJack.S05T01N01BlackJack.exception.GameNotFoundException;
-import cat.itacademy.s05.t01.n01.BlackJack.S05T01N01BlackJack.exception.GlobalExceptionHandler;
 import cat.itacademy.s05.t01.n01.BlackJack.S05T01N01BlackJack.model.sql.Player;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -60,9 +58,19 @@ public class Game {
     }
 
     public int calculeTotal(List<Card> hand) {
-        return hand.stream()
+        int total = hand.stream()
                 .mapToInt(card -> card.getRankCard().getPoints())
                 .sum();
+
+        long aceCount = hand.stream()
+                .filter(card -> card.getRankCard() == RankCard.ACE)
+                .count();
+
+        while(total > 21 && aceCount > 0){
+            total -= 10;
+            aceCount --;
+        }
+        return total;
     }
 
     public Player getPlayer() {

@@ -1,17 +1,8 @@
 package cat.itacademy.s05.t01.n01.BlackJack.S05T01N01BlackJack.model.sql;
 
-import cat.itacademy.s05.t01.n01.BlackJack.S05T01N01BlackJack.model.mongo.Card;
 import cat.itacademy.s05.t01.n01.BlackJack.S05T01N01BlackJack.enums.PlayerType;
 import org.springframework.data.annotation.Id;
-import org.springframework.data.annotation.Transient;
 import org.springframework.data.relational.core.mapping.Table;
-import lombok.Data;
-import lombok.NoArgsConstructor;
-import lombok.AllArgsConstructor;
-
-import java.util.ArrayList;
-import java.util.List;
-
 @Table("players")
 public class Player {
 
@@ -21,11 +12,9 @@ public class Player {
     private int gamesPlayed = 0;
     private int gamesWon = 0;
     private PlayerType playerType;
-
     public Player(Long id) {
         this.id = id;
     }
-
     public Player() {
 
     }

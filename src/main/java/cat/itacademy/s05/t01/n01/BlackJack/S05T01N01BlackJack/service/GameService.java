@@ -1,14 +1,11 @@
 package cat.itacademy.s05.t01.n01.BlackJack.S05T01N01BlackJack.service;
 
 import cat.itacademy.s05.t01.n01.BlackJack.S05T01N01BlackJack.exception.GameNotFoundException;
-import cat.itacademy.s05.t01.n01.BlackJack.S05T01N01BlackJack.model.mongo.Card;
 import cat.itacademy.s05.t01.n01.BlackJack.S05T01N01BlackJack.model.mongo.Game;
 import cat.itacademy.s05.t01.n01.BlackJack.S05T01N01BlackJack.repository.GameRepository;
 import cat.itacademy.s05.t01.n01.BlackJack.S05T01N01BlackJack.repository.PlayerRepository;
 import org.springframework.stereotype.Service;
-import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
-import java.util.Optional;
 
 
 @Service
@@ -80,13 +77,13 @@ public class GameService {
 
     public Mono<Game> playHit(String id) {
         return gameRepository.findById(id)
-                .switchIfEmpty(Mono.error(new GameNotFoundException("Game not found")))
+                .switchIfEmpty(Mono.error(new GameNotFoundException("Game not found.")))
                 .flatMap(game -> hit(game));
     }
 
     public Mono<Game> playStand(String id) {
         return gameRepository.findById(id)
-                .switchIfEmpty(Mono.error(new GameNotFoundException("Game not found")))
+                .switchIfEmpty(Mono.error(new GameNotFoundException("Game not found.")))
                 .flatMap(game -> stand(game));
     }
 
@@ -105,7 +102,7 @@ public class GameService {
         }else if(croupierScore > playerScore){
             game.setWinner(game.getCroupier().getName());
         }else{
-            game.setWinner("Draw");
+            game.setWinner("Draw.");
             playerRepository.save(game.getPlayer()).subscribe();
         }
         playerRepository.findById(game.getPlayer().getId())
@@ -126,7 +123,7 @@ public class GameService {
 
     public Mono<Void> delete (String id){
         return gameRepository.deleteById(id)
-                .switchIfEmpty(Mono.error(new GameNotFoundException("Game not found")))
+                .switchIfEmpty(Mono.error(new GameNotFoundException("Game not found.")))
                 .flatMap(game -> gameRepository.deleteById(id));
     }
 }
