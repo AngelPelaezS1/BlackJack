@@ -105,7 +105,8 @@ Usando **JUnit 5** y **Mockito**.
 Documentación generada automáticamente con Swagger:
 
 ```
-http://localhost:8080/swagger-ui.html
+http://localhost:8080/swagger-ui/index.html
+
 ```
 
 ---
