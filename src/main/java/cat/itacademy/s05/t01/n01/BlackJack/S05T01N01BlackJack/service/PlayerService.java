@@ -32,7 +32,6 @@ public class PlayerService {
                     return playerRepository.save(player);
                 })
                 .switchIfEmpty(Mono.error(new IllegalArgumentException("No player with that ID found.")));
-
     }
 
     public Flux<Player> ranking() {

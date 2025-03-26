@@ -10,6 +10,10 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.autoconfigure.web.reactive.AutoConfigureWebTestClient;
+import org.springframework.boot.test.context.SpringBootTest;
+import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 import reactor.test.StepVerifier;
 
@@ -26,9 +30,9 @@ public class PlayerServiceTest {
         String oldName = "Cristian";
         String newName = "Andres";
 
-        Player oldPlayer = new Player("Cristian", PlayerType.PLAYER);
+        Player oldPlayer = new Player(oldName, PlayerType.PLAYER);
         oldPlayer.setId(id);
-        Player newPlayer = new Player("Andres", PlayerType.PLAYER);
+        Player newPlayer = new Player(newName, PlayerType.PLAYER);
         newPlayer.setId(id);
 
         Mockito.when(playerRepository.findById(id)).thenReturn(Mono.just(oldPlayer));
@@ -38,10 +42,31 @@ public class PlayerServiceTest {
         StepVerifier.create(result)
                 .expectNextMatches(player -> player.getName().equals("Andres"))
                 .verifyComplete();
+    }
 
+    @Test
+    void testCreatePlayer(){
+        Player player = new Player("Jofre", PlayerType.PLAYER);
+        Mockito.when(playerRepository.save(Mockito.any(Player.class))).thenReturn(Mono.just(player));
+        Mono<Player> result = playerService.createPlayer("Jofre");
 
+        StepVerifier.create(result)
+                .expectNextMatches(playerCreated -> playerCreated.getName().equals("Jofre"))
+                .verifyComplete();
 
+    }
 
+    void testRanking(){
+        Player player = new Player("Jofre", PlayerType.PLAYER);
+        Player player1 = new Player("Antonio", PlayerType.PLAYER);
+        Player player2 = new Player("Aurelian", PlayerType.PLAYER);
+        Player player3 = new Player("Ezequiel", PlayerType.PLAYER);
 
+        Mockito.when(playerRepository.findTop10ByOrderByGamesWonDesc()).thenReturn(Flux.just(player,player1,player2,player3));
+        Flux<Player> result = playerService.ranking();
+
+        StepVerifier.create(result)
+                .expectNext(player,player1,player2,player3)
+                .verifyComplete();
     }
 }
