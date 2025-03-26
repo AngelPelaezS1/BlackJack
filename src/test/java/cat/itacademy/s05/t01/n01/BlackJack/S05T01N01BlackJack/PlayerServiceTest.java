@@ -10,15 +10,13 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.autoconfigure.web.reactive.AutoConfigureWebTestClient;
-import org.springframework.boot.test.context.SpringBootTest;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 import reactor.test.StepVerifier;
 
 @ExtendWith(MockitoExtension.class)
 public class PlayerServiceTest {
+
     @Mock
     private PlayerRepository playerRepository;
     @InjectMocks
@@ -55,7 +53,7 @@ public class PlayerServiceTest {
                 .verifyComplete();
 
     }
-
+    @Test
     void testRanking(){
         Player player = new Player("Jofre", PlayerType.PLAYER);
         Player player1 = new Player("Antonio", PlayerType.PLAYER);
@@ -68,5 +66,14 @@ public class PlayerServiceTest {
         StepVerifier.create(result)
                 .expectNext(player,player1,player2,player3)
                 .verifyComplete();
+    }
+    @Test
+    void testRankingEmpty() {
+        Mockito.when(playerRepository.findTop10ByOrderByGamesWonDesc()).thenReturn(Flux.empty());
+        Flux<Player> result = playerService.ranking();
+
+        StepVerifier.create(result)
+                .expectError(IllegalArgumentException.class)
+                .verify();
     }
 }

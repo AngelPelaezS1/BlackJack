@@ -46,6 +46,7 @@ public class PlayerControllerTest {
 
     }
 
+    @Test
     void testCreatePlayer() {
         Player player = new Player("Jofre", PlayerType.PLAYER);
 
@@ -61,6 +62,7 @@ public class PlayerControllerTest {
                 .jsonPath("$.name").isEqualTo("Jofre");
     }
 
+    @Test
     void testRanking() {
         Player player = new Player("Jofre", PlayerType.PLAYER);
         Player player1 = new Player("Antonio", PlayerType.PLAYER);
