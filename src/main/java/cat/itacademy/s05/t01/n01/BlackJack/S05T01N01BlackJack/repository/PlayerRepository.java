@@ -8,5 +8,4 @@ import reactor.core.publisher.Mono;
 public interface PlayerRepository extends ReactiveCrudRepository<Player, Long> {
     Flux<Player> findTop10ByOrderByGamesWonDesc();
     Mono<Player> findByName(String name);
-
 }

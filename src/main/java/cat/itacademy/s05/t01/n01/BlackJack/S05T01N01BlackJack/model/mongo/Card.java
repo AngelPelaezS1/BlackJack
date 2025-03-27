@@ -16,10 +16,5 @@ public class Card {
     public RankCard getRankCard() {
         return rankCard;
     }
-
-    public SuitCard getSuitCard() {
-        return suitCard;
-    }
-
 }
 

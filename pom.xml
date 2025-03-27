@@ -109,12 +109,6 @@
 			<artifactId>mockito-junit-jupiter</artifactId>
 			<scope>test</scope>
 		</dependency>
-		<!-- Reactor Test para probar Mono y Flux en WebFlux -->
-		<dependency>
-			<groupId>io.projectreactor</groupId>
-			<artifactId>reactor-test</artifactId>
-			<scope>test</scope>
-		</dependency>
 		<!-- Spring Boot Starter Test (incluye herramientas para probar controladores y servicios) -->
 		<dependency>
 			<groupId>org.springframework.boot</groupId>

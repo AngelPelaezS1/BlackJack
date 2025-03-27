@@ -12,11 +12,12 @@ public class Player {
     private int gamesPlayed = 0;
     private int gamesWon = 0;
     private PlayerType playerType;
+
     public Player(Long id) {
         this.id = id;
     }
-    public Player() {
 
+    public Player() {
     }
 
     public Player(Long id, String name, int gamesWons, int gamesPlayed, PlayerType playerType) {
@@ -52,24 +53,12 @@ public class Player {
         return gamesPlayed;
     }
 
-    public void setGamesPlayed(int gamesPlayed) {
-        this.gamesPlayed = gamesPlayed;
-    }
-
     public int getGamesWon() {
         return gamesWon;
     }
 
     public void setGamesWon(int gamesWon) {
         this.gamesWon = gamesWon;
-    }
-
-    public PlayerType getPlayerType() {
-        return playerType;
-    }
-
-    public void setPlayerType(PlayerType playerType) {
-        this.playerType = playerType;
     }
 
     public void playGame(){

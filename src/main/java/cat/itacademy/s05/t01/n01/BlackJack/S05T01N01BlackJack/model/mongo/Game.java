@@ -30,11 +30,9 @@ public class Game {
     private List<Card> playerHand = new ArrayList<>();
     private List<Card> croupierHand = new ArrayList<>();
 
-
     @Transient
     @JsonIgnore
     private List<Card> deck = new ArrayList<>();
-
 
     public Game(Player player) {
         this.player = player;
@@ -101,16 +99,8 @@ public class Game {
         return croupierHand;
     }
 
-    public void setCroupierHand(List<Card> croupierHand) {
-        this.croupierHand = croupierHand;
-    }
-
     public List<Card> getPlayerHand() {
         return playerHand;
-    }
-
-    public void setPlayerHand(List<Card> playerHand) {
-        this.playerHand = playerHand;
     }
 
     public void setPlayer(Player player) {
