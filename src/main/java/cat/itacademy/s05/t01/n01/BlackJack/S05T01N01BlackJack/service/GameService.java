@@ -37,10 +37,6 @@ public class GameService {
     }
 
     public void deal(Game game) {
-        if (game.getDeck() == null || game.getDeck().isEmpty()) {
-            throw new IllegalStateException("There are not cards in the deck.");
-        }
-
         game.getPlayerHand().add(game.getDeck().get(0));
         game.getDeck().remove(0);
         game.getPlayerHand().add(game.getDeck().get(0));
